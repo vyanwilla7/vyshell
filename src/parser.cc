@@ -18,6 +18,8 @@ void vyshl() {
       }
     }
 
+    if(input_usr.empty()) continue;
+
     std::vector<std::string> argv;
     std::stringstream ss(input_usr);
 
