@@ -1,42 +1,23 @@
 #include "parser.hpp"
+#include "command.hpp"
 
-#include <iostream>
-#include <string>
-#include <vector>
 #include <sstream>
+// parsing a token input
+std::vector<std::string> parse(const std::string& inputs) {
 
-//logic for the run a command
-void vyshl() {
+  std::string token;
+  std::vector<std::string> argv;
+  std::stringstream ss(inputs);
 
-  std::string input_usr;
-  while (true) {
-    std::cout << "vysh$ ";
-
-    if (!std::getline(std::cin, input_usr)) {
-      if (std::cin.eof()) {
-        std::cout << "\nbye..\n"; break;
-      }
-    }
-
-    if(input_usr.empty()) continue;
-
-    std::vector<std::string> argv;
-    std::stringstream ss(input_usr);
-
-    while (ss >> input_usr) argv.push_back(input_usr);
-
-    if (argv[0] == "kluar") {
-      break;
-    }else if (argv[0] == "dftr") {
-      Bc::dftr(argv);    
-     }else if (argv[0] == "ctak") {
-      Bc::ctak(argv);
-    }else if (argv[0] == "brsih") {
-      Bc::brsih();
-    }else if (argv[0] == "tlong") {
-      Bc::bntuan();
-    }else if (argv[0] == "dmn") {
-      Bc::dmn();
-    }
-  }  
+  while (ss >> token) argv.push_back(token);
+  return argv;
 }
+
+// list the builtin command
+const std::unordered_map<std::string, BuiltInComm> commands = {
+  {"dftr", Bc::dftr},
+  {"ctak", Bc::ctak},
+  {"brsih", [](const args&) {Bc::brsih();}},
+  {"dmn", [](const args&) {Bc::dmn();}},
+  {"tlong", [](const args&) {Bc::bntuan();}}
+};

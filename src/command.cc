@@ -1,4 +1,4 @@
-#include "command_.hpp"
+#include "command.hpp"
 
 #include <cstddef>
 #include <filesystem>
@@ -12,28 +12,20 @@ namespace Fs = std::filesystem;
 // like a ls
 void Bc::dftr(const std::vector<std::string>& path) {
 
-  if (path.size() <= 1) {
-    Fs::path targets_dir = Fs::current_path();
-    if (Fs::exists(targets_dir) && Fs::is_directory(targets_dir)) {
-      for (const auto& f: Fs::directory_iterator(targets_dir)) {
-        std::cout << f.path().filename().string() << " ";
-      }
-      std::cout << std::endl;
-    }
-    return;
-    
-  }
+  // print list a directory targets
 
-  //read a folder path in arg 1
-  Fs::path targets_dir(path[1]);
+  Fs::path targets_dir = path.size() > 1 ? Fs::path(path[1]) : Fs::current_path();
 
-  if (Fs::exists(targets_dir) && Fs::is_directory(targets_dir)) {
-    for (const auto& f: Fs::directory_iterator(targets_dir)) {
-      std::cout << f.path().filename().string() << " ";
+  if (Fs::exists(targets_dir) || Fs::is_directory(targets_dir)) {
+    for (const auto& file : Fs::directory_iterator(targets_dir)) {
+      std::cout << file.path().filename().string() << " ";
     }
     std::cout << std::endl;
+
   }else {
-    std::cerr << "failed to read a folder: " << path[1] << '\n';
+    std::cerr << "'" << path[1] << "'" <<
+    " is not diretory or is not found!" << '\n';
+    return;
   }
 }
 
@@ -73,3 +65,6 @@ void Bc::dmn() {
   Fs::path current_dir = Fs::current_path();
   std::cout << current_dir.generic_string()<< '\n';
 }
+
+
+// TODO: add function pndh, liat

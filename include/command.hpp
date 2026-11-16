@@ -10,7 +10,8 @@ class BuiltinCommand {
   public:
     static void bntuan();             
     static void brsih();
-    static void dftr(const std::vector<std::string>& path);
+    static void dftr(const std::vector
+                     <std::string>& path);
     static void ctak(const std::vector    
               <std::string>& size_line);
     static void dmn();
