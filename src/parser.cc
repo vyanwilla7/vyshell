@@ -17,7 +17,12 @@ std::vector<std::string> parse(const std::string& inputs) {
 const std::unordered_map<std::string, BuiltInComm> commands = {
   {"dftr", Bc::dftr},
   {"ctak", Bc::ctak},
+  {"liat", Bc::liat},
+  {"bf", Bc::bf},
+  {"pndh", Bc::pndh},
+
   {"brsih", [](const args&) {Bc::brsih();}},
   {"dmn", [](const args&) {Bc::dmn();}},
-  {"tlong", [](const args&) {Bc::bntuan();}}
+  {"tlong", [](const args&) {Bc::bntuan();}},
+  {"wktu", [](const args&) {Bc::wktu();}}
 };
